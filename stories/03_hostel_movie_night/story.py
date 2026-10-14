@@ -79,6 +79,17 @@ class StorytellingCircle:  # Unrelated class with the expected methods.
     def describe(self):
         return "Storytelling circle: zero MB, unlimited plot twists."
 
+# A duck-typed board game that works with the movie-night interface.
+class BoardGame:
+    def __init__(self):
+        self.title = "Ludo night"
+
+    def data_cost(self):
+        return 0
+
+    def describe(self):
+        return "Ludo night: zero MB, and friendly competition."
+
 
 # ACT 4: MovieNight HAS-A bundle; it is not a kind of bundle.
 class MovieNight:
