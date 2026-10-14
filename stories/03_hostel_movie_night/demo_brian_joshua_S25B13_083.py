@@ -3,7 +3,7 @@ from story import ComedyClip, MovieNight, show_options
 
 normal = ComedyClip("Campus comedy hour")
 
-show_options([[normal]])
+show_options([normal])
 
 night = MovieNight("Brian Joshua", 50)
 print("Expected: Brian Joshua's group enjoys Campus comedy hour.")
