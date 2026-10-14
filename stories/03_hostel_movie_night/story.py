@@ -2,6 +2,7 @@
 Run: python3 story.py. Data costs are invented, not provider estimates.
 """
 from abc import ABC, abstractmethod
+import re
 
 
 # ACT 1: Data belongs to an object that controls how much can be used.
@@ -23,6 +24,13 @@ class DataBundle:
         if amount <= 0 or amount > self.remaining:
             return False
         self.remaining = self.remaining - amount
+        return True
+
+    # Allows a friend to add valid positive data
+    def add_data(self, amount):
+        if amount <= 0:
+            return False
+        self.remaining = self.remaining + amount
         return True
 
 
