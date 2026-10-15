@@ -92,6 +92,16 @@ class MovieNight:
     def activities(self):  # Read-only; a count derived from the real list.
         return len(self._watched)
 
+    #make an addition to the work Erima T.A
+    def recap(self):
+        if not self._watched:
+            return {
+                "message": "No activities yet.",
+                "titles": [],
+                "activities": 0,
+                "remaining": self.bundle.remaining,
+            }
+
     def enjoy(self, entertainment):
         self.entertainment = entertainment  # Borrowed, swappable: aggregation.
         needed = entertainment.data_cost()  # Abstraction: HOW is hidden here.
