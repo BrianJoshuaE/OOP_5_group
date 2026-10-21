@@ -2,6 +2,7 @@
 Run: python3 story.py. Data costs are invented, not provider estimates.
 """
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
 
 
 # ACT 1: Data belongs to an object that controls how much can be used.
@@ -91,6 +92,15 @@ class MovieNight:
     @property
     def activities(self):  # Read-only; a count derived from the real list.
         return len(self._watched)
+
+    
+    # Later-topic contribution — Albert Nsubuga:
+    # A1 preview integration; totals choices without spending data or recording history.
+    def preview_total(self, choices):
+        total = DataAmount(0)
+        for choice in choices:
+            total = total + DataAmount(choice.data_cost())
+        return total
 
     def enjoy(self, entertainment):
         self.entertainment = entertainment  # Borrowed, swappable: aggregation.
