@@ -2,6 +2,7 @@
 Run: python3 story.py. Data costs are invented, not provider estimates.
 """
 from abc import ABC, abstractmethod
+import re
 
 
 # ACT 1: Data belongs to an object that controls how much can be used.
@@ -24,6 +25,8 @@ class DataBundle:
             return False
         self.remaining = self.remaining - amount
         return True
+
+   
 
 
 # ACT 2: Every entertainment option answers the same two questions.
@@ -89,6 +92,13 @@ class BoardGame:
 
     def describe(self):
         return "Ludo night: zero MB, and friendly competition."
+
+# Return options that fit the data budget without playing or changing them
+def available(options, megabytes):
+        return [
+            option for option in options
+            if option.data_cost() <= megabytes
+        ]
 
 
 # ACT 4: MovieNight HAS-A bundle; it is not a kind of bundle.
