@@ -127,6 +127,36 @@ def show_options(options):  # Week 1 function + list + loop.
         print(option.describe())  # Same call, different results: polymorphism.
 
 
+# Later-topic contribution — David:
+# A2 strict coordinator that validates requests before changing MovieNight state.
+class MovieRequestError(Exception):
+    """Base error for invalid movie night requests."""
+
+
+class MovieChoiceError(MovieRequestError):
+    """Raised when no activity is chosen."""
+
+
+class MovieResourceError(MovieRequestError):
+    """Raised when the bundle cannot cover the activity."""
+
+
+class StrictMovieNight(MovieNight):
+    def safe_enjoy(self, choice):
+        if choice is None:
+            raise MovieChoiceError("Choose an activity before starting movie night.")
+
+        needed = choice.data_cost()
+        if type(needed) is not int or needed < 0:
+            raise MovieRequestError("The activity must quote a non-negative whole MB cost.")
+        if needed > self.bundle.remaining:
+            raise MovieResourceError(
+                f"{choice.title} needs {needed} MB, but only "
+                f"{self.bundle.remaining} MB remains."
+            )
+        return super().enjoy(choice)
+
+
 def main():
     print("=== HOSTEL MOVIE NIGHT ===")
     print("Faith promised a movie night. Her bundle has other ideas.")
