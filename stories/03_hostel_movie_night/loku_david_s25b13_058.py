@@ -38,3 +38,6 @@ for choice, expected_error in attempts:
         print("Expected: success")
     finally:
         print("State:", before, "->", (night.bundle.remaining, night.activities))
+
+
+# david
