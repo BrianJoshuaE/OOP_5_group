@@ -127,6 +127,21 @@ def show_options(options):  # Week 1 function + list + loop.
         print(option.describe())  # Same call, different results: polymorphism.
 
 
+# Later-topic contribution — Kevin Ninsiima:
+# A4 factory keeps choice creation separate from MovieNight coordination.
+def create_choice(key, **settings):
+    if key == "movie":
+        return StreamedMovie(
+            settings.get("title", "Untitled movie"),
+            settings.get("megabytes", 700),
+        )
+    if key == "music":
+        return MusicSession(settings.get("title", "Music session"))
+    if key == "story":
+        return StorytellingCircle()
+    raise ValueError(f"Unknown entertainment choice: {key}")
+
+
 # Later-topic contribution — David:
 # A2 strict coordinator that validates requests before changing MovieNight state.
 class MovieRequestError(Exception):
