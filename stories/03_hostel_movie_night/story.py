@@ -142,6 +142,10 @@ class DataAmount:
             return NotImplemented
         return DataAmount(self.amount + other.amount)
 
+def show_options(options):  # Week 1 function + list + loop.
+    for option in options:
+        print(option.describe())  # Same call, different results: polymorphism.
+
 def main():
     print("=== HOSTEL MOVIE NIGHT ===")
     print("Faith promised a movie night. Her bundle has other ideas.")
