@@ -2,7 +2,25 @@
 Run: python3 story.py. Data costs are invented, not provider estimates.
 """
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
 import re
+
+
+@dataclass(frozen=True)
+class DataAmount:
+    amount: int
+
+    def __post_init__(self):
+        if type(self.amount) is not int or self.amount < 0:
+            raise ValueError("Data amount must be a non-negative whole number.")
+
+    def __add__(self, other):
+        if not isinstance(other, DataAmount):
+            return NotImplemented
+        return DataAmount(self.amount + other.amount)
+
+    def __str__(self):
+        return f"{self.amount} MB"
 
 
 # ACT 1: Data belongs to an object that controls how much can be used.
@@ -25,10 +43,6 @@ class DataBundle:
             return False
         self.remaining = self.remaining - amount
         return True
-
-   
-
-
 # ACT 2: Every entertainment option answers the same two questions.
 class Entertainment(ABC):
     location = "Mukono hostel lounge"  # Shared class attribute.
@@ -112,6 +126,15 @@ class MovieNight:
     @property
     def activities(self):  # Read-only; a count derived from the real list.
         return len(self._watched)
+
+    
+    # Later-topic contribution — Albert Nsubuga:
+    # A1 preview integration; totals choices without spending data or recording history.
+    def preview_total(self, choices):
+        total = DataAmount(0)
+        for choice in choices:
+            total = total + DataAmount(choice.data_cost())
+        return total
 
     def enjoy(self, entertainment):
         self.entertainment = entertainment  # Borrowed, swappable: aggregation.
