@@ -43,6 +43,15 @@ class DataBundle:
             return False
         self.remaining = self.remaining - amount
         return True
+
+    # Allows a friend to add valid positive data
+    def add_data(self, amount):
+        if amount <= 0:
+            return False
+        self.remaining = self.remaining + amount
+        return True
+
+
 # ACT 2: Every entertainment option answers the same two questions.
 class Entertainment(ABC):
     location = "Mukono hostel lounge"  # Shared class attribute.
@@ -71,6 +80,13 @@ class MusicSession(Entertainment):  # Sibling: hierarchical inheritance.
     def data_cost(self):
         return 100
 
+# A short commedy option that uses a small amount of data.
+class ComedyClip(Entertainment):
+    def __init__(self, title):
+        super().__init__(title)
+
+    def data_cost(self):
+        return 50  # Small data cost for a short comedy clip.
 
 class DataSaverMovie(StreamedMovie):  # Three levels: multilevel inheritance.
     def data_cost(self):
@@ -127,7 +143,16 @@ class MovieNight:
     def activities(self):  # Read-only; a count derived from the real list.
         return len(self._watched)
 
-    
+    #make an addition to the work Erima T.A
+    def recap(self):
+        if not self._watched:
+            return {
+                "message": "No activities yet.",
+                "titles": [],
+                "activities": 0,
+                "remaining": self.bundle.remaining,
+            }
+
     # Later-topic contribution — Albert Nsubuga:
     # A1 preview integration; totals choices without spending data or recording history.
     def preview_total(self, choices):
