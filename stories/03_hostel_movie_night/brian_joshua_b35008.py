@@ -16,3 +16,5 @@ for invalid in (-1, 1.5, True):
         DataAmount(invalid)
     except ValueError:
         print("Refused invalid amount:", repr(invalid))
+
+#
