@@ -194,7 +194,7 @@ class StrictMovieNight(MovieNight):
             )
         return super().enjoy(choice)
     
-# Erima Thomas
+# Erima Thomas updated
 class DataAmount:
     def __init__(self, amount):
         if type(amount) is not int or amount < 0:
